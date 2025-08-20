@@ -60,5 +60,36 @@ intervalos = pd.cut(x = tabela.valor, bins = classes, labels=labels, include_low
 
 freq_abs = pd.value_counts(intervalos)
 
+freq_rel = pd.value_counts(intervalos, normalize= True)
 
 
+dist_freq = pd.DataFrame({"Frequencia absoluta: ": freq_abs, 
+                          "Frequencia_relativa: ": freq_rel})
+
+dist_freq.sort_index(ascending=True, inplace=True)
+
+dist_freq["freq_rel_perc"] = np.round(dist_freq["Frequencia_relativa"],2)
+
+print(dist_freq)
+
+#histograma (matplotlib)
+
+import matplotlib.pyplot as plt
+
+from matplotlib import colors
+
+plt.hist(df.compra, bins = 4, color='blue')
+plt.title("histograma")
+
+
+#histograma - curva de tendencia (seaborn)
+
+import seaborn as sn
+
+#histograma (Plotly)
+
+import plotly.express as px
+
+grafico = px.histogram(df, x = "compra", nbins = 6)
+grafico.update_layout(width=500,height=400,tittle_text="histograma")
+grafico.show
